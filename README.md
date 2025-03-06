@@ -1,4 +1,4 @@
-![logo](https://github.com/SoraTenshi/zig_bait/blob/main/zig_bait.png?raw=true)
+![logo](https://github.com/ViktorTrojan/zig_bait/blob/main/zig_bait.png?raw=true)
 
 A native Hooking library with support for all common hooking mechanisms.
 Detour & IAT hooks are not yet supported, but VMT are fully implemented.
