@@ -5,13 +5,13 @@ pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{});
 
     const zig_bait_tools = b.createModule(.{
-        .root_source_file = b.path("zig-bait-tools/zig-bait-tools.zig"),
+        .root_source_file = b.path("zig_bait_tools/zig_bait_tools.zig"),
     });
 
-    const bait = b.addModule("zig-bait", .{
+    const bait = b.addModule("zig_bait", .{
         .root_source_file = b.path("bait.zig"),
         .imports = &.{.{
-            .name = "zig-bait-tools",
+            .name = "zig_bait_tools",
             .module = zig_bait_tools,
         }},
     });
@@ -21,7 +21,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    bait_test.root_module.addImport("zig-bait-tools", zig_bait_tools);
+    bait_test.root_module.addImport("zig_bait_tools", zig_bait_tools);
 
     const run_lib_tests = b.addRunArtifact(bait_test);
     const test_step = b.step("test", "Run the library tests");

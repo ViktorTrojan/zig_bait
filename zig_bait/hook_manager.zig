@@ -2,7 +2,7 @@
 const std = @import("std");
 
 // Public utils
-const tools = @import("zig-bait-tools");
+const tools = @import("zig_bait_tools");
 
 // All the VMT utils
 const vmt = @import("vmt.zig");

@@ -1,4 +1,4 @@
-![logo](https://github.com/SoraTenshi/zig-bait/blob/main/zig-bait.png?raw=true)
+![logo](https://github.com/SoraTenshi/zig_bait/blob/main/zig_bait.png?raw=true)
 
 A native Hooking library with support for all common hooking mechanisms.
 Detour & IAT hooks are not yet supported, but VMT are fully implemented.
@@ -7,15 +7,17 @@ If you have any ideas for how to automatically test this library, please let me 
 ASLR and the difference in possible multiple Compilers, i am not really sure how to effectively assure
 this.
 
+> Note: This is ment for zig **0.14.0**
+
 ## Usage:
 ### Install:
-In your project just add the dependency to your Zig dependencies: `zig fetch --save https://github.com/SoraTenshi/zig-bait/archive/main.tar.gz`
+In your project just add the dependency to your Zig dependencies: `zig fetch --save git+https://github.com/ViktorTrojan/zig_bait`
 
-And then in your `build.zig`: 
+And then in your `build.zig`:
 ```zig
-const bait = b.dependency("zig-bait", .{});
+const bait = b.dependency("zig_bait", .{});
 
-your_project.root_module.addImport("bait", bait.module("zig-bait"));
+your_project.root_module.addImport("bait", bait.module("zig_bait"));
 ```
 
 ### Using in your Project:

@@ -1,6 +1,6 @@
 const std = @import("std");
 
-const tools = @import("zig-bait-tools");
+const tools = @import("zig_bait_tools");
 
 const Allocator = std.mem.Allocator;
 

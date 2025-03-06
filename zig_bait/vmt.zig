@@ -3,7 +3,7 @@ const builtin = @import("builtin");
 const win = std.os.windows;
 const lin = std.os.linux;
 
-const tools = @import("zig-bait-tools");
+const tools = @import("zig_bait_tools");
 const interface = @import("interface.zig");
 const option = @import("option/option.zig");
 

@@ -1,9 +1,9 @@
 // Public utils
-pub const addressToVtable = @import("zig-bait-tools").addressToVtable;
+pub const addressToVtable = @import("zig_bait_tools").addressToVtable;
 
 // The hook manager
-pub const HookManager = @import("zig-bait/hook_manager.zig").HookManager;
+pub const HookManager = @import("zig_bait/hook_manager.zig").HookManager;
 
 test "hook manager tests" {
-    @import("std").testing.refAllDecls(@import("zig-bait/hook_manager.zig"));
+    @import("std").testing.refAllDecls(@import("zig_bait/hook_manager.zig"));
 }

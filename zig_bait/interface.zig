@@ -2,7 +2,7 @@ const std = @import("std");
 
 const option = @import("option/option.zig");
 
-const tools = @import("zig-bait-tools");
+const tools = @import("zig_bait_tools");
 
 /// The interface for hooking functions.
 pub const Hook = struct {

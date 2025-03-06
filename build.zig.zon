@@ -1,5 +1,6 @@
 .{
-    .name = "zig-bait",
+    .name = .zig_bait,
+    .fingerprint = 0xd243c7ab5a5c0c5c,
     .version = "0.0.1",
     .minimum_zig_version = "0.13.0",
 
@@ -7,8 +8,8 @@
         "README.md",
         "LICENSE",
         "src/",
-        "zig-bait",
-        "zig-bait-tools/",
+        "zig_bait",
+        "zig_bait_tools/",
         "bait.zig",
         "build.zig",
         "build.zig.zon",

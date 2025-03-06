@@ -1,9 +1,10 @@
 const std = @import("std");
 const Allocator = std.mem.Allocator;
 
-const tools = @import("zig-bait-tools");
+const tools = @import("zig_bait_tools");
 const AbstractClass = tools.AbstractClass;
 
+/// The mapping from index to target as well as restore address
 const IndexToTarget = struct {
     position: usize,
     target: usize,
@@ -13,28 +14,21 @@ const IndexToTarget = struct {
 pub const HookFunc = tools.HookFunctionType(Option);
 pub const RestoreFunc = tools.RestoreFunctionType(Option);
 
-/// The options for the Virtual Method Table hook
+/// The VMT option type
 pub const Option = struct {
     /// The base class containing the targeted VTable
     base: AbstractClass,
     /// The mapping from index to target as well as restore values
     index_map: []IndexToTarget,
-    /// The original vtable pointer
-    safe_orig: ?usize,
-    /// The allocator to be used when `shadow` is enabled
-    alloc: ?std.heap.ArenaAllocator,
-    /// Track of the vtable
-    created_vtable: ?[]usize,
+    /// The allocator used to allocate the index map
+    alloc: std.heap.ArenaAllocator,
     /// The hook function
     hook: HookFunc,
     /// The restore function
     restore: RestoreFunc,
 
-    fn lessThan(_: void, lhs: IndexToTarget, rhs: IndexToTarget) bool {
-        return lhs.position < rhs.position;
-    }
-
-    /// Initialize the VMT hooking option
+    /// Initialize the VMT option
+    /// remarks: The allocator will be wrapped in an ArenaAllocator
     pub fn init(
         alloc: Allocator,
         base: AbstractClass,
@@ -47,14 +41,11 @@ pub const Option = struct {
         var self = Option{
             .base = base,
             .index_map = try arena.allocator().alloc(IndexToTarget, positions.len),
-            .safe_orig = null,
             .alloc = arena,
-            .created_vtable = null,
             .hook = hook,
             .restore = restore,
         };
 
-        // Initialize the index map
         for (positions, 0..) |pos, i| {
             self.index_map[i] = IndexToTarget{
                 .position = pos,
@@ -63,12 +54,10 @@ pub const Option = struct {
             };
         }
 
-        std.sort.insertion(IndexToTarget, self.index_map, {}, lessThan);
-
         return self;
     }
 
-    /// Return the function pointer of the hooked function
+    /// Gets the original function at the given position
     pub fn getOriginalFunction(self: Option, hooked_func: anytype, position: usize) anyerror!@TypeOf(hooked_func) {
         tools.checkIsFnPtr(hooked_func);
 
@@ -81,10 +70,8 @@ pub const Option = struct {
         return error.InvalidPosition;
     }
 
-    // Deinitialize the VMT hooking option
+    /// Deinit the option
     pub fn deinit(self: *Option) void {
-        if (self.alloc) |alloc| {
-            alloc.deinit();
-        }
+        self.alloc.deinit();
     }
 };
